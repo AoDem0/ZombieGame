@@ -9,6 +9,8 @@ public class GunScript : MonoBehaviour
     public int currentBulletsAmount;
     public int gunDMG = 10;
     private bool canShoot = true;
+    private bool reloading = false;
+    
     [SerializeField]private float gunCooldownTime = 3f;
     [SerializeField]private float gunReloadTime = 5f;
     [SerializeField] private float range = 100f;
@@ -21,14 +23,16 @@ public class GunScript : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) & canShoot & currentBulletsAmount > 0){
             Shoot();
-            currentBulletsAmount -= 1;
             StartCoroutine(gunCooldown());
         }
         else if(currentBulletsAmount == 0){
+            
                 StartCoroutine(reloadGun());
             }
         if(Input.GetKeyDown("r")){
-            StartCoroutine(reloadGun());
+            
+                StartCoroutine(reloadGun());
+            
         }
     }
 
@@ -38,26 +42,35 @@ public class GunScript : MonoBehaviour
         if(Physics.Raycast(FPScamera.transform.position, FPScamera.transform.forward, out hit, range)){
             Debug.Log(hit.transform.name);
             EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
-            if(enemy != null){
+            if(enemy != null & canShoot){
                 Debug.Log("Enemy found!");
                 enemy.TakeDamage(gunDMG);
-                
             }
+            currentBulletsAmount -= 1;
             
         }
     }
 
     private IEnumerator gunCooldown(){
+       if(canShoot){
+        
         Debug.Log("Gun on cooldown");
         canShoot = false;
         yield return new WaitForSeconds(gunCooldownTime);
         canShoot = true;
-        Debug.Log("Gun ready for shooting");
+        Debug.Log("Gun ready for shooting");} 
+       
     }
 
     private IEnumerator reloadGun(){
-        Debug.Log("Start reloading gun");
-        yield return new WaitForSeconds(gunReloadTime);
-        currentBulletsAmount = maxBulletsAmount;
+        if (reloading == false){
+            reloading = true;
+            canShoot = false;
+            Debug.Log("Start reloading gun");
+            yield return new WaitForSeconds(gunReloadTime);
+            canShoot = true;
+            currentBulletsAmount = maxBulletsAmount;
+            reloading = false;}
+
     }
 }
