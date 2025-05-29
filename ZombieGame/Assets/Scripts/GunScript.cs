@@ -41,6 +41,7 @@ public class GunScript : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(FPScamera.transform.position, FPScamera.transform.forward, out hit, range)){
             Debug.Log(hit.transform.name);
+            Debug.DrawRay(FPScamera.transform.position,  FPScamera.transform.forward * range, Color.yellow);
             EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
             if(enemy != null & canShoot){
                 Debug.Log("Enemy found!");
