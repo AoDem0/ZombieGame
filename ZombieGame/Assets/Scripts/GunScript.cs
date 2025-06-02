@@ -35,16 +35,44 @@ public class GunScript : MonoBehaviour
             
         }
     }
+    private void OnEnable()
+    {
+        EventsList.OnUpgradeChange += changeParameters;
+    }
+
+    private void OnDisable()
+    {
+        EventsList.OnUpgradeChange -= changeParameters;
+    }
+
+    void changeParameters(string name, float parameter)
+    {
+        Debug.Log("Changing parameters");
+        switch (name)
+        {
+            case "BulletUpgrade":
+                gunDMG = (int)parameter;
+                break;
+            case "MagazineUpgrade":
+                maxBulletsAmount = (int)parameter;
+                break;
+            case "ReloadUpgrade":
+                gunReloadTime = parameter;
+                break;
+            default:
+                break;
+        }
+    }
 
     
     void Shoot(){
         RaycastHit hit;
         if(Physics.Raycast(FPScamera.transform.position, FPScamera.transform.forward, out hit, range)){
-            Debug.Log(hit.transform.name);
-            Debug.DrawRay(FPScamera.transform.position,  FPScamera.transform.forward * range, Color.yellow);
+            //Debug.Log(hit.transform.name);
+            //Debug.DrawRay(FPScamera.transform.position,  FPScamera.transform.forward * range, Color.yellow);
             EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
             if(enemy != null & canShoot){
-                Debug.Log("Enemy found!");
+                //Debug.Log("Enemy found!");
                 enemy.TakeDamage(gunDMG);
             }
             currentBulletsAmount -= 1;
@@ -53,13 +81,15 @@ public class GunScript : MonoBehaviour
     }
 
     private IEnumerator gunCooldown(){
-       if(canShoot){
-        
-        Debug.Log("Gun on cooldown");
-        canShoot = false;
-        yield return new WaitForSeconds(gunCooldownTime);
-        canShoot = true;
-        Debug.Log("Gun ready for shooting");} 
+        if (canShoot)
+        {
+
+            //Debug.Log("Gun on cooldown");
+            canShoot = false;
+            yield return new WaitForSeconds(gunCooldownTime);
+            canShoot = true;
+            //Debug.Log("Gun ready for shooting");
+        } 
        
     }
 
@@ -67,7 +97,7 @@ public class GunScript : MonoBehaviour
         if (reloading == false){
             reloading = true;
             canShoot = false;
-            Debug.Log("Start reloading gun");
+            //Debug.Log("Start reloading gun");
             yield return new WaitForSeconds(gunReloadTime);
             canShoot = true;
             currentBulletsAmount = maxBulletsAmount;

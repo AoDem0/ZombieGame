@@ -2017,6 +2017,7 @@ GameObject:
   - component: {fileID: 398128972}
   - component: {fileID: 398128973}
   - component: {fileID: 398128974}
+  - component: {fileID: 398128975}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2082,6 +2083,43 @@ MonoBehaviour:
   canvas1: {fileID: 1781322150}
   canvas2: {fileID: 287875335}
   canvas3: {fileID: 444075277}
+--- !u!114 &398128975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398128970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a72fe6b9884d4648ab014f72fcf742e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: {fileID: 398128972}
+  moneySC: {fileID: 398128973}
+  index: 0
+  allUpgrades:
+  - upgradeName: BulletUpgrade
+    currentLevel: 0
+    upgradeCost: 02000000050000000a000000
+    upgradeParameters:
+    - 11
+    - 12
+    - 13
+  - upgradeName: MagazineUpgrade
+    currentLevel: 0
+    upgradeCost: 02000000050000000a000000
+    upgradeParameters:
+    - 8
+    - 10
+    - 12
+  - upgradeName: ReloadUpgrade
+    currentLevel: 0
+    upgradeCost: 02000000050000000a000000
+    upgradeParameters:
+    - 6
+    - 7
+    - 8
 --- !u!1001 &409747711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5774,6 +5812,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 4096
+  events: {fileID: 398128972}
+  interactedUpgradeName: 
 --- !u!1 &987532501
 GameObject:
   m_ObjectHideFlags: 0
