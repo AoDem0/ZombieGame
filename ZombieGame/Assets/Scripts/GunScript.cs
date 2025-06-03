@@ -15,6 +15,8 @@ public class GunScript : MonoBehaviour
     [SerializeField]private float gunReloadTime = 5f;
     [SerializeField] private float range = 100f;
 
+    [SerializeField] private audioManager audios;
+
     void Start()
     {
         currentBulletsAmount = maxBulletsAmount;
@@ -68,10 +70,12 @@ public class GunScript : MonoBehaviour
     void Shoot(){
         RaycastHit hit;
         if(Physics.Raycast(FPScamera.transform.position, FPScamera.transform.forward, out hit, range)){
+            audios.Play("gunshot");
             //Debug.Log(hit.transform.name);
             //Debug.DrawRay(FPScamera.transform.position,  FPScamera.transform.forward * range, Color.yellow);
             EnemyScript enemy = hit.transform.GetComponent<EnemyScript>();
             if(enemy != null & canShoot){
+                
                 //Debug.Log("Enemy found!");
                 enemy.TakeDamage(gunDMG);
             }
@@ -94,14 +98,17 @@ public class GunScript : MonoBehaviour
     }
 
     private IEnumerator reloadGun(){
-        if (reloading == false){
+        if (reloading == false)
+        {
+            StartCoroutine(audios.PlayLoop("startReload", "endReload", gunReloadTime, "reloadLoop"));
             reloading = true;
             canShoot = false;
             //Debug.Log("Start reloading gun");
             yield return new WaitForSeconds(gunReloadTime);
             canShoot = true;
             currentBulletsAmount = maxBulletsAmount;
-            reloading = false;}
+            reloading = false;
+        }
 
     }
 }
