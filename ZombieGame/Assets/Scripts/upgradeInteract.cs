@@ -65,7 +65,10 @@ public class upgradeInteract : MonoBehaviour
         if (collision.gameObject.layer == 9)
         {
             isInTrigger = false;
-            canvas.enabled = false;
+            if (canvas != null)
+            {
+                canvas.enabled = false;
+            }
         }
     }
     void Interact()
