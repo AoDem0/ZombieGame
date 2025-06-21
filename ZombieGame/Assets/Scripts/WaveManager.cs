@@ -9,14 +9,15 @@ public class WaveManager : MonoBehaviour
     [SerializeField]private int zombiesPerWave = 5;
     [SerializeField] private float zombieModif = 0.9f;
     [SerializeField] private int currentWave = 0;
-    [SerializeField] public float spawnInterval = 1f;
+    [SerializeField] public float spawnInterval = 60f;
     [SerializeField] public float spawnDistanceMin = 20f;
     [SerializeField] public float spawnDistanceMax = 40f;
     [SerializeField] private List<GameObject> aliveZombies;
 
     [SerializeField] private int nightNum = 0;
+    public float zombieMoveSpeed = 1.4f;
 
-    public float zombieMoveSpeed = 3.4f;
+    [SerializeField] private audioManager audioMan;    
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class WaveManager : MonoBehaviour
             zombieMoveSpeed += 0.05f;
             int zombiesToSpawn = Mathf.RoundToInt(zombiesPerWave * currentWave * zombieModif);
             Debug.Log($"Wave {currentWave} starting: {zombiesToSpawn} zombies!");
+            audioMan.Play("waveSound");
             yield return StartCoroutine(SpawnWave(zombiesToSpawn));
             yield return StartCoroutine(WaitForZombiesToDie());
             Debug.Log($"Wave {currentWave} defeated. Next wave in {timeBetweenWaves} seconds.");
@@ -48,6 +50,7 @@ public class WaveManager : MonoBehaviour
         {
             Vector3 spawnPos = GetRandomSpawnPosition();
             GameObject zombie = Instantiate(zombiePrefab, spawnPos, Quaternion.identity);
+            audioMan.Play("zombieSpawn");
             aliveZombies.Add(zombie);
             yield return new WaitForSeconds(spawnInterval);
         }
@@ -64,9 +67,28 @@ public class WaveManager : MonoBehaviour
 
     private Vector3 GetRandomSpawnPosition()
     {
-        Vector2 randomDir = Random.insideUnitCircle.normalized;
-        float distance = Random.Range(spawnDistanceMin, spawnDistanceMax);
-        Vector3 position = new Vector3(randomDir.x, 0f, randomDir.y) * distance;
+        int ranSide = Random.Range(0, 3);
+        float ranX = 0f;
+        float ranZ = 0f;
+        switch (ranSide)
+        {
+            case 0:
+                ranX = Random.Range(40.2f, 54f);
+                ranZ = Random.Range(-21.3f, 49.5f);
+                break;
+            case 1:
+                ranX = Random.Range(-45.88f, 38f);
+                ranZ = Random.Range(36.13f, 49.9f);
+                break;
+            case 2:
+                ranX = Random.Range(-61.7f, -47.9f);
+                ranZ = Random.Range(-21.3f, 48.9f);
+                break;
+            default:
+                break;
+        }
+        
+        Vector3 position = new Vector3(ranX, 0f, ranZ);
         return position;
     }
 }

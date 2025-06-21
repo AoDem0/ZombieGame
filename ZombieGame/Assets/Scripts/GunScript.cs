@@ -31,7 +31,7 @@ public class GunScript : MonoBehaviour
             
                 StartCoroutine(reloadGun());
             }
-        if(Input.GetKeyDown("r")){
+        if(Input.GetKeyDown("r") & currentBulletsAmount != maxBulletsAmount){
             
                 StartCoroutine(reloadGun());
             
