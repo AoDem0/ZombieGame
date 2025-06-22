@@ -12,12 +12,18 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] private EventsList events;
     private Transform targetWindow;
     [SerializeField] private WaveManager man;
+    [SerializeField] private homeManager home;
+    [SerializeField] private float damageCooldown = 2f;
+    private float lastDamageTime = -Mathf.Infinity;
+    [SerializeField]private AudioSource zombieSource;
 
 
     void Start()
     {
         events = FindAnyObjectByType<EventsList>();
         man = FindAnyObjectByType<WaveManager>();
+        home = FindAnyObjectByType<homeManager>();
+        zombieSource = GetComponent<AudioSource>();
         currentEnemyHealth = maxEnemyHealth;
         agent.speed = man.zombieMoveSpeed;
         StartCoroutine(FindPath());
@@ -43,6 +49,31 @@ public class EnemyScript : MonoBehaviour
         if (targetWindow != null)
         {
             agent.SetDestination(targetWindow.position);
+        }
+    }
+private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.CompareTag("Window") && home != null)
+        {
+            TryDealDamage();
+        }
+    }
+
+    private void OnTriggerStay(Collider collider)
+    {
+        if (collider.CompareTag("Window") && home != null)
+        {
+            TryDealDamage();
+        }
+    }
+
+    private void TryDealDamage()
+    {
+        if (Time.time - lastDamageTime >= damageCooldown)
+        {
+            zombieSource.Play();
+            home.takeDMGHome();
+            lastDamageTime = Time.time;
         }
     }
     public void TakeDamage(int amount)
