@@ -36,7 +36,7 @@ public class WaveManager : MonoBehaviour
             text.text = "night " + nightNum;
             zombieModif += 0.1f;
             zombieMoveSpeed += 0.05f;
-            int zombiesToSpawn = Mathf.RoundToInt(zombiesPerWave * currentWave * zombieModif);
+            int zombiesToSpawn = Mathf.RoundToInt(zombiesPerWave * zombieModif);
             Debug.Log($"Wave {currentWave} starting: {zombiesToSpawn} zombies!");
             yield return StartCoroutine(SpawnWave(zombiesToSpawn));
             yield return StartCoroutine(WaitForZombiesToDie());
