@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
@@ -10,18 +11,18 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float zombieModif = 0.9f;
     [SerializeField] private int currentWave = 0;
     [SerializeField] public float spawnInterval = 60f;
-    [SerializeField] public float spawnDistanceMin = 20f;
-    [SerializeField] public float spawnDistanceMax = 40f;
     [SerializeField] private List<GameObject> aliveZombies;
+    [SerializeField] private TextMeshProUGUI text;
 
     [SerializeField] private int nightNum = 0;
     public float zombieMoveSpeed = 1.4f;
 
-    [SerializeField] private audioManager audioMan;    
+    [SerializeField] private audioManager audioMan;
 
     void Start()
     {
         StartCoroutine(StartWaves());
+        text.text = "night 1";
     }
 
     private IEnumerator StartWaves()
@@ -29,13 +30,14 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(timeBetweenWaves);
         while (true)
         {
+            audioMan.Play("waveSound");
             currentWave++;
             nightNum++;
+            text.text = "night " + nightNum;
             zombieModif += 0.1f;
             zombieMoveSpeed += 0.05f;
             int zombiesToSpawn = Mathf.RoundToInt(zombiesPerWave * currentWave * zombieModif);
             Debug.Log($"Wave {currentWave} starting: {zombiesToSpawn} zombies!");
-            audioMan.Play("waveSound");
             yield return StartCoroutine(SpawnWave(zombiesToSpawn));
             yield return StartCoroutine(WaitForZombiesToDie());
             Debug.Log($"Wave {currentWave} defeated. Next wave in {timeBetweenWaves} seconds.");

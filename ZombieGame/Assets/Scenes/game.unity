@@ -2171,7 +2171,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: zombieSpawn
     clip: {fileID: 8300000, guid: ae00baf32d83374418a1070a321aa8a7, type: 3}
-    volume: 1
+    volume: 0.7
     source: {fileID: 0}
   - name: waveSound
     clip: {fileID: 8300000, guid: 70198a5e9d373354d88c541560c7e87d, type: 3}
@@ -2191,15 +2191,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombiePrefab: {fileID: 5592588757913773351, guid: cb6d50303473fb94cb0ecec8014db28c, type: 3}
   timeBetweenWaves: 1
-  zombiesPerWave: 20
+  zombiesPerWave: 5
   zombieModif: 0.9
   currentWave: 0
   spawnInterval: 1
-  spawnDistanceMin: 20
-  spawnDistanceMax: 40
   aliveZombies: []
+  text: {fileID: 554638962}
   nightNum: 0
-  zombieMoveSpeed: 10
+  zombieMoveSpeed: 2.4
   audioMan: {fileID: 398128976}
 --- !u!114 &398128979
 MonoBehaviour:
