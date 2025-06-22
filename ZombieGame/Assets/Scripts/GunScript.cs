@@ -16,6 +16,7 @@ public class GunScript : MonoBehaviour
     [SerializeField] private float range = 100f;
 
     [SerializeField] private audioManager audios;
+    [SerializeField] private LayerMask layerMask;
 
     void Start()
     {
@@ -69,7 +70,7 @@ public class GunScript : MonoBehaviour
     
     void Shoot(){
         RaycastHit hit;
-        if(Physics.Raycast(FPScamera.transform.position, FPScamera.transform.forward, out hit, range)){
+        if(Physics.Raycast(FPScamera.transform.position, FPScamera.transform.forward, out hit, range, layerMask)){
             audios.Play("gunshot");
             //Debug.Log(hit.transform.name);
             //Debug.DrawRay(FPScamera.transform.position,  FPScamera.transform.forward * range, Color.yellow);
