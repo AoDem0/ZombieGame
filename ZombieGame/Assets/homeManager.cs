@@ -22,6 +22,6 @@ public class homeManager : MonoBehaviour
     }
     private void EndGame()
     {
-        SceneManager.LoadScene("death");
+        SceneManager.LoadScene("death2");
     }
 }

@@ -2078,8 +2078,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40182908e350324c8ae91ad9af2b07a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 200000
-  addedMoney: 3
+  money: 100
+  addedMoney: 5
   events: {fileID: 398128972}
   textUI: {fileID: 1156143143}
 --- !u!114 &398128974
@@ -2115,31 +2115,46 @@ MonoBehaviour:
   allUpgrades:
   - upgradeName: BulletUpgrade
     currentLevel: 0
-    upgradeCost: 02000000050000000a0000000c0000000e0000001200000014000000
+    upgradeCost: 1e0000004800000078000000b4000000fc0000004a010000a4010000040200006a020000d0020000
     upgradeParameters:
     - 11
-    - 12
     - 13
-    - 14
     - 15
+    - 17
+    - 19
     - 20
+    - 21
     - 22
+    - 23
+    - 24
   - upgradeName: MagazineUpgrade
     currentLevel: 0
-    upgradeCost: 02000000050000000a0000001100000019000000
+    upgradeCost: 240000004e00000084000000c60000001401000068010000c20100002202000088020000f4020000
     upgradeParameters:
-    - 7
-    - 10
     - 12
     - 14
     - 16
+    - 18
+    - 20
+    - 22
+    - 24
+    - 26
+    - 28
+    - 30
   - upgradeName: ReloadUpgrade
     currentLevel: 0
-    upgradeCost: 02000000050000000a000000
+    upgradeCost: 30000000600000009c000000e400000038010000a40100001c020000a00200002a030000c0030000
     upgradeParameters:
-    - 6
-    - 7
-    - 8
+    - 3.2
+    - 2.9
+    - 2.6
+    - 2.4
+    - 2.2
+    - 2
+    - 1.9
+    - 1.8
+    - 1.75
+    - 1.7
 --- !u!114 &398128976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2190,11 +2205,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zombiePrefab: {fileID: 5592588757913773351, guid: cb6d50303473fb94cb0ecec8014db28c, type: 3}
-  timeBetweenWaves: 1
+  timeBetweenWaves: 30
   zombiesPerWave: 5
   zombieModif: 0.9
   currentWave: 0
-  spawnInterval: 1
+  spawnInterval: 5
   aliveZombies: []
   text: {fileID: 554638962}
   nightNum: 0
@@ -2212,8 +2227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cc9fe818e3b9d44920c3e9db81acc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  homeCurrentHP: 10000
-  homeMaxHP: 10000
+  homeCurrentHP: 100
+  homeMaxHP: 100
   slider: {fileID: 814188592}
 --- !u!1001 &409747711
 PrefabInstance:
